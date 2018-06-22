@@ -1,3 +1,38 @@
-$(document).ready(function() {
-    
-})
+body {
+    margin: 0;
+    padding: 0;
+    background-color: red;
+    font-family: cursive;
+}
+
+h2{
+    font-size:30px;
+    margin: auto 0;
+    color: lightcoral;
+    line-height: 75px;
+}
+
+img {
+    position: absolute;
+    width: 400px;
+    top: 220px;
+    left: 200px;
+}
+
+header {
+    background-color: darkblue;
+    height: 100px;
+}
+
+footer {
+    background-color: darkblue;
+    height: 100px;
+    position: fixed;
+    width: 100%;
+    bottom:0;
+    left: 0;
+}
+.container, .header-container {
+    max-width: 960px;
+    margin: 0 auto;
+}
