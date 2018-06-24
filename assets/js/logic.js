@@ -1,11 +1,12 @@
 // giphy api key 4k56iwIPS0RnWf5HeBblECm7wDCme0eb
 
 
-var shows = ["Buffy The Vampire Slayer", "Star Trek The Next Generation", "Person of Interest", "CSI:Miami", "Gravity Falls", "Iron Chef", "House"];
+var shows = ["Buffy The Vampire Slayer", "Star Trek The Next Generation", "Person of Interest", "CSI:Miami", "Gravity Falls", "Iron Chef", "Darkwing Duck"];
 var gifs = [];
 var gifThumbnail = [];
 var ratings = [];
 var gifTitle = [];
+var favoriteGifs = [];
 
 $(document).ready(function () {
     var generateButtons = function () {
@@ -20,6 +21,9 @@ $(document).ready(function () {
         var newButton = $("<button>").addClass("new-show").text("Add a Show!");
         $(".button-list").append(newButton);
     }
+
+    //fired when a show button is clicked
+    //makes api calls to ombd and giphy
     $(document).on("click", ".show-button", function () {
         var showInfoDiv = $(".show-info");
         showInfoDiv.empty();
@@ -30,6 +34,11 @@ $(document).ready(function () {
             url: omdbQuery,
             method: "GET"
         }).then(function (response) {
+            if (response.Response === "False") {
+                showInfoDiv.append($("<h2>").text("Couldn't Find Show in Database ¯\\_(ツ)_/¯"));
+                console.log(response);
+                return;
+            }
             var poster = $("<img>").attr({
                 src: response.Poster,
                 alt: showName + " Poster"
@@ -59,10 +68,10 @@ $(document).ready(function () {
             }
             for (var i = 0; i < gifs.length; i++) {
                 var gifDiv = $("<div>").addClass("gif-div");
-                gifDiv.prepend($("<button>").text("Add to Favorites").attr("data-gifID",i).addClass("favorites").attr("download",""));
-                gifDiv.prepend($("<a href='"+gifs[i]+"' download><button>Download GIF</button></a>"));
+                gifDiv.prepend($("<button>").text("Add to Favorites").attr("data-gifID", i).addClass("favorites").attr("download", ""));
+                gifDiv.prepend($("<a href='" + gifs[i] + "' download><button>Download GIF</button></a>"));
                 gifDiv.prepend($("<p>").text("Rating: " + ratings[i]));
-                gifDiv.prepend($("<p>").text("Title: "+gifTitle[i]));
+                gifDiv.prepend($("<p>").text("Title: " + gifTitle[i]));
                 gifDiv.prepend($("<img>").attr({
                     "src": gifThumbnail[i],
                     "alt": gifTitle[i],
@@ -73,6 +82,8 @@ $(document).ready(function () {
             }
         })
     })
+
+    //add a show button is clicked
     $(document).on("click", ".new-show", function () {
         $("header").animate({ opacity: .5 }, 500);
         $(".container").animate({ opacity: .5 }, 500, function () {
@@ -93,6 +104,8 @@ $(document).ready(function () {
             $(":input[name=new-show]").focus();
         });
     });
+
+    //submit button on add a show window
     $(document).on("click", ".submit-button", function (event) {
         event.preventDefault();
         var movieName = $("#textInput").val().trim();
@@ -104,15 +117,64 @@ $(document).ready(function () {
             $(".form").remove();
         });
     });
-    $(document).on("click",".gif-image",function() {
-        if($(this).hasClass("still")){
-            $(this).attr("src",gifs[$(this).attr("data-id")]).removeClass("still").addClass("animated");
+
+    //pause and unpause gif on click
+    $(document).on("click", ".gif-image", function () {
+        if ($(this).hasClass("still")) {
+            $(this).attr("src", gifs[$(this).attr("data-id")]).removeClass("still").addClass("animated");
         }
-        else if($(this).hasClass("animated")) {
-            $(this).attr("src",gifThumbnail[$(this).attr("data-id")]).removeClass("animated").addClass("still");
+        else if ($(this).hasClass("animated")) {
+            $(this).attr("src", gifThumbnail[$(this).attr("data-id")]).removeClass("animated").addClass("still");
         }
-        
     })
+
+    //header favorites button clicked
+    $(".favorites-button").click(function () {
+        if ($(".container").is(":visible")) {
+            var newDiv = $("<div>").addClass("favorite-container");
+            for (var i = 0; i < favoriteGifs.length; i++) {
+                var gifDiv = $("<div>").addClass("gif-div");
+                gifDiv.prepend($("<a href='" + gifs[favoriteGifs[i]] + "' download><button>Download GIF</button></a>"));
+                gifDiv.prepend($("<p>").text("Rating: " + ratings[favoriteGifs[i]]));
+                gifDiv.prepend($("<p>").text("Title: " + gifTitle[favoriteGifs[i]]));
+                gifDiv.prepend($("<img>").attr({
+                    "src": gifThumbnail[favoriteGifs[i]],
+                    "alt": gifTitle[favoriteGifs[i]],
+                    "class": "gif-image still",
+                    "data-id": favoriteGifs[i]
+                }));
+                newDiv.append(gifDiv);
+            }
+            $(".container").slideUp(500, function () {
+                var favoritesHeader = $("<h2>").text("My Favorite Gifs").addClass("center");
+                var favoritesContainer = $("<div>").addClass("fav-page").hide();
+                favoritesContainer.append(favoritesHeader);
+                favoritesContainer.append(newDiv);
+                $("body").append(favoritesContainer);
+                if(favoriteGifs.length===0) {
+                    favoritesContainer.append($("<h2>").text("Go Pick Some Favorites and Come Back!").addClass("center"));
+                }
+                favoritesContainer.slideDown(1000);
+            });
+        }
+    })
+
+    //home button clicked 
+    $(document).on("click",".home",function() {
+        $(".fav-page").slideUp(500, function() {
+            $(".fav-page").remove();
+            $(".container").slideDown(1000);
+        });
+        
+    });
+
+    //Add to Favorites Clicked
+    $(document).on("click",".favorites",function() {
+        if(!favoriteGifs.includes($(this).attr("data-gifID"))) {
+            favoriteGifs.push($(this).attr("data-gifID"));
+            $(this).text("Favorited!");
+        }
+    });
 
     //start page code
     generateButtons();
