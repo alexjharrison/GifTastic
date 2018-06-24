@@ -12,18 +12,35 @@
 
 <body>
     <header>
-        <div class="header-container">
-            <h2>My Giphy Site</h2>
+        <div class="header-container clearfix">
+            <h2 data-button="home">TV Show Gif Generator</h2>
+            <nav>
+                <p data-button="home">Home</p>
+                <p data-button="favorites">Favorites</p>
+            </nav>
         </div>
-        
     </header>
-    <img src="assets/images/star.png" alt="star">;
+
     <div class="container">
+        <div class="button-list"></div>
+        <div class="show-info">
+            <img src="http://via.placeholder.com/250x350" alt="">
+            <div class="text-info">
+                <p>text</p>
+                <p>text</p>
+                <p>text</p>
+            </div>
 
+        </div>
+        <div class="gif-list"></div>
+        <!-- <div class="form">
+            <form>
+                <label for="new-show">Add a Show</label>
+                <input type="text" name="new-show" id="textInput">
+                <button type="submit">Submit</button>
+            </form>
+        </div> -->
     </div>
-    <footer>
-
-    </footer>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
         crossorigin="anonymous"></script>
