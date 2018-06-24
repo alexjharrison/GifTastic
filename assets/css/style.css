@@ -53,10 +53,11 @@ nav p {
 /* Show Info Styles */
 .show-info {
     display: flex;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
 }
-.show-info img {
-    margin: 10px;;
+.poster-div img {
+    margin: 30px;
+    height: 350px;
 }
 .text-info {
     margin: auto 10px;
@@ -86,7 +87,21 @@ input {
 }
 
 /* Gif Grid Styles */
-/* TODO: this */
+.gif-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+.gif-div {
+    margin: 10px;
+    padding: 10px;
+    max-width: 333px;
+    text-align:center;
+}
+.gif-div button{
+    margin: 2px 5px 0 0;
+    border-radius: 2px;
+}
 
 /* Clearfix */
 .clearfix:after {
