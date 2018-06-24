@@ -40,6 +40,8 @@ $(document).ready(function() {
             newForm.append(newLabel,newInput,newButton);
             $("body").append(newForm);
             newForm.show(500);
+            $(":input[name=new-show]").focus();
+            console.log("I'm run twice for some unknown reason");
         })
     })
     $(document).on("click",".submit-button",function(event){
