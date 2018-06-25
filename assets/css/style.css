@@ -57,6 +57,7 @@ nav p {
     margin: 10px 20px;
     border-radius: 5px;
     flex-grow: 1;
+    text-transform:capitalize;
 }
 
 /* Show Info Styles */
