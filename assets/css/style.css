@@ -62,7 +62,6 @@ nav p {
 /* Show Info Styles */
 .show-info {
     display: flex;
-    /* flex-wrap: wrap; */
 }
 .poster-div img {
     margin: 30px;
@@ -79,9 +78,9 @@ nav p {
     width: 200px;
     height: 100px;
     position: fixed;
-    top: 40%;
+    top: 30% ;
     left: 50%;
-    margin-top: -200px;
+    /* margin-top: -200px; */
     margin-left: -100px;
     opacity: 1;
     background-color: rgb(212, 212, 212);
@@ -93,6 +92,14 @@ nav p {
 }
 input {
     margin: 15px 0;
+}
+.close-window {
+    position: absolute;
+    right: 11px;
+    font-size: 15px;
+    cursor: pointer;
+    border: 1px solid black;
+    padding: 0 2px 0 1px; 
 }
 
 /* Gif Grid Styles */

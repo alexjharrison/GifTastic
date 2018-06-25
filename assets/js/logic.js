@@ -91,6 +91,7 @@ $(document).ready(function () {
             var newLabel = $("<label>");
             newLabel.attr("for", "new-show").text("Add a Show");
             var newInput = $("<input>");
+            var closeButton = $("<span>").text("X").addClass("close-window").attr("data-cancel","cancel");
             newInput.attr({
                 "type": "text",
                 "name": "new-show",
@@ -98,7 +99,7 @@ $(document).ready(function () {
             });
             var newButton = $("<button>");
             newButton.attr("type", "submit").text("Submit").addClass("submit-button");
-            newForm.append(newLabel, newInput, newButton);
+            newForm.append(closeButton,newLabel, newInput, newButton);
             $("body").append(newForm);
             newForm.show(500);
             $(":input[name=new-show]").focus();
@@ -106,11 +107,12 @@ $(document).ready(function () {
     });
 
     //submit button on add a show window
-    $(document).on("click", ".submit-button", function (event) {
+    $(document).on("click", ".submit-button, .close-window", function (event) {
         event.preventDefault();
-        var movieName = $("#textInput").val().trim();
-        console.log(movieName);
-        shows.push(movieName);
+        if($(this).attr("class")==="submit-button") {
+            var movieName = $("#textInput").val().trim();
+            if(movieName) { shows.push(movieName); }
+        }
         $(".form").hide(500);
         $("header, .container").animate({ opacity: 1 }, 500, function () {
             generateButtons();
