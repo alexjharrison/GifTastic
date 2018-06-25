@@ -114,6 +114,7 @@ input {
     padding: 10px;
     max-width: 333px;
     text-align:center;
+    overflow: hidden;
 }
 .gif-div button{
     margin: 2px 5px 0 0;
