@@ -1,7 +1,7 @@
 // giphy api key 4k56iwIPS0RnWf5HeBblECm7wDCme0eb
 
 
-var shows = ["Buffy The Vampire Slayer", "Star Trek The Next Generation", "Person of Interest", "CSI:Miami", "Gravity Falls", "Iron Chef", "Darkwing Duck"];
+var shows = ["Buffy The Vampire Slayer", "Star Trek: The Next Generation", "Person of Interest", "CSI:Miami", "Gravity Falls", "Iron Chef", "Darkwing Duck"];
 var gifs = [];
 var gifThumbnail = [];
 var ratings = [];
@@ -151,7 +151,7 @@ $(document).ready(function () {
                 favoritesContainer.append(favoritesHeader);
                 favoritesContainer.append(newDiv);
                 $("body").append(favoritesContainer);
-                if(favoriteGifs.length===0) {
+                if (favoriteGifs.length === 0) {
                     favoritesContainer.append($("<h2>").text("Go Pick Some Favorites and Come Back!").addClass("center"));
                 }
                 favoritesContainer.slideDown(1000);
@@ -160,19 +160,26 @@ $(document).ready(function () {
     })
 
     //home button clicked 
-    $(document).on("click",".home",function() {
-        $(".fav-page").slideUp(500, function() {
+    $(document).on("click", ".home", function () {
+        $(".fav-page").slideUp(500, function () {
             $(".fav-page").remove();
             $(".container").slideDown(1000);
         });
-        
+
     });
 
     //Add to Favorites Clicked
-    $(document).on("click",".favorites",function() {
-        if(!favoriteGifs.includes($(this).attr("data-gifID"))) {
+    $(document).on("click", ".favorites", function () {
+        if (!favoriteGifs.includes($(this).attr("data-gifID"))) {
             favoriteGifs.push($(this).attr("data-gifID"));
             $(this).text("Favorited!");
+        }
+        else {
+            var index = favoriteGifs.indexOf($(this).attr("data-gifID"));
+            if (index > -1) {
+                favoriteGifs.splice(index, 1);
+            }
+            $(this).text("Add to Favorites");
         }
     });
 
